@@ -9,6 +9,7 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
         System.out.println("人间大炮一级准备");
+        System.out.println("人间大炮二级准备");
     }
 
 }
