@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.1</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>test.build.docker</groupId>
+    <artifactId>demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>demo</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <dockerfile.repository>registry.cn-hangzhou.aliyuncs.com/doctorxiong/miniprogress</dockerfile.repository>
+        <dockerfile.baseImage>registry.cn-hangzhou.aliyuncs.com/doctorxiong/java-8u202:v1</dockerfile.baseImage>
+        <docker-tag>${maven.build.timestamp}</docker-tag>
+        <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+        <docker-env>dev</docker-env>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <imageName>${dockerfile.repository}/${project.build.finalName}-${docker-env}:${docker-tag}</imageName>
+                    <baseImage>${dockerfile.baseImage}</baseImage>
+                    <!--${project.build.finalName}.jar是打包后生成的jar包的名字-->
+                    <entryPoint>["sh","-c","java $CUSTOM_JAVA_OPTS -jar $JAR_PATH --spring.profiles.active=$profile]</entryPoint>
+                    <env>
+                        <CUSTOM_JAVA_OPTS>-XX:+UseContainerSupport -XX:-UseAdaptiveSizePolicy -XX:MaxDirectMemorySize=512M -Xss512K -XX:MetaspaceSize=256m  -XX:MaxMetaspaceSize=512m -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/data/logs/jvm/oom/${project.build.finalName}.hprof -XX:ErrorFile=/data/logs/jvm/${project.build.finalName}_hs_err_pid.log</CUSTOM_JAVA_OPTS>
+                        <JAR_PATH>/usr/local/${project.build.finalName}/${project.build.finalName}.jar</JAR_PATH>
+                    </env>
+                    <resources>
+                        <resource>
+                            <targetPath>/usr/local/${project.build.finalName}/</targetPath>
+                            <directory>./target/</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
