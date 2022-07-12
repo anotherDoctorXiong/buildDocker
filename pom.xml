@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>test.build.docker</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>miniprogress</artifactId>
     <version>0.0.1</version>
     <name>demo</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <dockerfile.repository>registry.cn-hangzhou.aliyuncs.com/doctorxiong/miniprogress</dockerfile.repository>
+        <dockerfile.repository>registry.cn-hangzhou.aliyuncs.com/doctorxiong</dockerfile.repository>
         <dockerfile.baseImage>registry.cn-hangzhou.aliyuncs.com/doctorxiong/java-8u202:v1</dockerfile.baseImage>
         <docker-tag>${maven.build.timestamp}</docker-tag>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
