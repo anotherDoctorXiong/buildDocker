@@ -52,7 +52,7 @@
                     <imageName>${dockerfile.repository}/${project.build.finalName}-${docker-env}:${docker-tag}</imageName>
                     <baseImage>${dockerfile.baseImage}</baseImage>
                     <!--${project.build.finalName}.jar是打包后生成的jar包的名字-->
-                    <entryPoint>["sh","-c","java $CUSTOM_JAVA_OPTS -jar $JAR_PATH --spring.profiles.active=$profile]</entryPoint>
+                    <entryPoint>["sh","-c","java $CUSTOM_JAVA_OPTS -jar $JAR_PATH --spring.profiles.active=$profile"]</entryPoint>
                     <env>
                         <CUSTOM_JAVA_OPTS>-XX:+UseContainerSupport -XX:-UseAdaptiveSizePolicy -XX:MaxDirectMemorySize=512M -Xss512K -XX:MetaspaceSize=256m  -XX:MaxMetaspaceSize=512m -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/data/logs/jvm/oom/${project.build.finalName}.hprof -XX:ErrorFile=/data/logs/jvm/${project.build.finalName}_hs_err_pid.log</CUSTOM_JAVA_OPTS>
                         <JAR_PATH>/usr/local/${project.build.finalName}/${project.build.finalName}.jar</JAR_PATH>
