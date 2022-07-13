@@ -51,6 +51,7 @@
                 <configuration>
                     <!--maven的setting文件设置镜像仓库的账号密码-->
                     <serverId>docker-aliyun</serverId>
+                    <registryUrl>registry.cn-hangzhou.aliyuncs.com</registryUrl>
                     <imageName>${dockerfile.repository}/${project.build.finalName}-${docker-env}:${docker-tag}</imageName>
                     <baseImage>${dockerfile.baseImage}</baseImage>
                     <!--${project.build.finalName}.jar是打包后生成的jar包的名字-->
