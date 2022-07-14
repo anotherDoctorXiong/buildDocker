@@ -14,7 +14,7 @@
     <name>demo</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <dockerfile.repository>registry.cn-hangzhou.aliyuncs.com/doctorxiong</dockerfile.repository>
+        <dockerfile.repository>registry.cn-shenzhen.aliyuncs.com/doctor_xiong</dockerfile.repository>
         <dockerfile.baseImage>registry.cn-hangzhou.aliyuncs.com/doctorxiong/java-8u202:v1</dockerfile.baseImage>
         <docker-tag>latest</docker-tag>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
@@ -25,6 +25,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
