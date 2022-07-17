@@ -26,11 +26,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>web-common</groupId>
-            <artifactId>spring-boot-starter-web-common</artifactId>
-            <version>1.0</version>
-        </dependency>
 
 
         <dependency>
