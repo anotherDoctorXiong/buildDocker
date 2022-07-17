@@ -16,7 +16,7 @@
     <properties>
         <dockerfile.repository>registry.cn-shenzhen.aliyuncs.com/doctorxiong.club</dockerfile.repository>
         <dockerfile.baseImage>registry.cn-shenzhen.aliyuncs.com/doctorxiong/java8:latest</dockerfile.baseImage>
-        <docker-tag>latest</docker-tag>
+        <docker-tag>${maven.build.timestamp}</docker-tag>
         <maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
         <docker-env>dev</docker-env>
     </properties>
