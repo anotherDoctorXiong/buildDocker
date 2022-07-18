@@ -17,9 +17,21 @@ docker run -d -u root --name nexus  -v /root/docker/volume/nexus/nexus-data:/nex
 ## nacos
 
 ```bash
+# 配置表sql
 https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql
 # 相关配置数据都存在mysql,这里主要是连接mysql和日志配置
 docker run -d -u root --name nacos  -v /root/docker/volume/nacos/conf:/home/nacos/conf  -p 8848:8848 nacos/nacos-server
+
+# 单机模式按挂载文件启动无法连接mysql必须手动指定
+docker run -d -u root --name nacos  
+-e SPRING_DATASOURCE_PLATFORM=mysql 
+-e  MYSQL_SERVICE_HOST=8.135.117.119 
+-e MYSQL_SERVICE_PORT=3306 
+-e MYSQL_SERVICE_DB_NAME=nacos_config 
+-e MYSQL_SERVICE_USER=root 
+-e MYSQL_SERVICE_PASSWORD=Root_123456 
+-p 8848:8848 
+-e MODE=standalone nacos/nacos-server:latest 
 ```
 
 ## jenkins 
