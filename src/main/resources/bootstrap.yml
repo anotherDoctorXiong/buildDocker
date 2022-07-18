@@ -1,0 +1,49 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: build-docker
+  profiles:
+    active: local
+  cloud:
+    nacos:
+      config:
+        server-addr: 119.29.146.247:8848
+        file-extension: yml
+        shared-configs[0]:
+          data-id: test.yml
+          refresh: true
+
+
+dubbo:
+  scan:
+    base-packages: test.build.docker.demo.provider
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registry:
+    address: nacos://119.29.146.247:8848
+  cloud:
+    subscribed-services:
+  # https://dubbo.apache.org/zh/docs/v2.7/user/references/xml/dubbo-consumer/
+  consumer:
+    check: false # 启动时检查提供者是否存在，true报错，false忽略
+    version: dev
+  # https://dubbo.apache.org/zh/docs/v2.7/user/references/xml/dubbo-provider/
+  provider:
+    timeout: 10000 # 远程服务调用超时时间(毫秒)
+    threads: 200 # 提供线程池大小
+    threadpool: fixed # fixed:固定大小线程池，cached:缓存线程池，空闲一分钟自动删除，limited:线程数只增长不收缩，eager:优先创建Worker线程池
+    retries: 2 # 远程服务调用重试次数，不包括第一次调用，不需要重试请设为0
+    loadbalance: random # 负载均衡策略,random:随机、roundrobin:轮询、leastactive:最少活跃调用
+    queues: 0 # 线程池队列大小，当线程池满时，排队等待执行的队列大小，建议不要设置，当线程池满时应立即失败，重试其它服务提供机器，而不是排队，除非有特殊需求。
+    version: dev
+
+
+
+
+
+
+

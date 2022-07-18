@@ -17,6 +17,7 @@ docker run -d -u root --name nexus  -v /root/docker/volume/nexus/nexus-data:/nex
 ## nacos
 
 ```bash
+https://github.com/alibaba/nacos/blob/develop/distribution/conf/nacos-mysql.sql
 # 相关配置数据都存在mysql,这里主要是连接mysql和日志配置
 docker run -d -u root --name nacos  -v /root/docker/volume/nacos/conf:/home/nacos/conf  -p 8848:8848 nacos/nacos-server
 ```
